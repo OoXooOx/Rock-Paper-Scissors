@@ -180,7 +180,7 @@ contract gameSPS is Ownable, Pausable, VRFConsumerBaseV2 {
     //↓↓↓↓↓↓// PLAY WITH SC //↓↓↓↓↓↓
     ////////////////////////////////
     function startGameSPS (uint128 _playerChoice) external payable whenNotPaused() {
-        require(msg.value>0.001 ether && msg.value<=bank, "Wrong value");
+        require(msg.value>=0.001 ether && msg.value<=bank, "Wrong value");
         require(_playerChoice<=MAX_CHOICE_NUMBER, "Wrong choice number");
         uint s_requestId = COORDINATOR.requestRandomWords(
             keyHash,
@@ -237,7 +237,7 @@ contract gameSPS is Ownable, Pausable, VRFConsumerBaseV2 {
     //↓↓↓↓↓↓// PLAY WITH OTHER GAMER //↓↓↓↓↓↓
     /////////////////////////////////////////
     function startPVPGameSPS (bytes32 _hashedChoice) external payable whenNotPaused() {
-        require(msg.value>0.001 ether, "min 0.001BNB");
+        require(msg.value>=0.001 ether, "min 0.001BNB");
         gameNumber++;
         spsPVP[gameNumber].first=_msgSender();
         spsPVP[gameNumber].firtstHashedChoice=_hashedChoice;
